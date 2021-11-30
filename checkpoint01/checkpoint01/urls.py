@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from counter.views import persons_json, increment_counter
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('persons/', persons_json),
+    path('increment/<int:cid>/', increment_counter),
 ]
