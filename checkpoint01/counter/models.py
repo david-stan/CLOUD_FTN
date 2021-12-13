@@ -8,4 +8,4 @@ class Person(models.Model):
     date_updated = models.DateField(null=False, auto_now=True)
 
 class Counter(models.Model):
-    counter_value = models.PositiveIntegerField()
+    counter_value = models.PositiveIntegerField(default=1)
