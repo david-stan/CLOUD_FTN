@@ -18,6 +18,6 @@ SCRIPT
 Vagrant.configure("2") do |config|
   config.vm.box = "hashicorp/bionic64"
   config.vm.provision "docker"
-  config.vm.provision "file", source: "./checkpoint01", destination: "$HOME/djangoapp"
+  config.vm.provision "file", source: "./app", destination: "$HOME/djangoapp"
   config.vm.provision "shell", inline: $script2
 end
