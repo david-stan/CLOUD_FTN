@@ -1,0 +1,11 @@
+FROM nginx:1.21.5
+
+RUN apt update
+
+WORKDIR /etc/nginx/conf.d
+
+EXPOSE 80
+
+RUN rm default.conf
+
+COPY ./app.conf app.conf 

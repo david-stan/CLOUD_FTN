@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  web1:
+    build: .
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db1
+
+  web2:
+    build: .
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - 8001:8000
+    env_file:
+      - ./.env.dev2
+    depends_on:
+      - db2
+
+  db1:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data1:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+      - POSTGRES_HOST=db1
+
+  db2:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data2:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+      - POSTGRES_HOST=db2
+    command: -p 5433
+
+  ngnix:
+    build:
+      context: ./
+      dockerfile: DockerfileNginx
+    ports:
+      - "9000:80"
+    depends_on:
+      - web1
+      - web2
+
+volumes:
+  postgres_data1:
+  postgres_data2:
