@@ -11,7 +11,10 @@ def persons_json(request):
     return JsonResponse(serizalizer.data, safe=False, status=200)
 
 def increment_counter(request, cid):
-    counter = Counter.objects.get(id=cid)
+    counter, created = Counter.objects.get_or_create(
+        id=cid,
+        defaults={'counter_value': 0},
+    )
     counter.counter_value += 1
     counter.save()
     serializer = CounterSerializer(counter)
