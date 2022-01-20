@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   web1:
-    build: .
+    image: davidstan/django_app:0.1
+    container_name: web1
     volumes:
       - ./app/:/usr/src/app/
     ports:
@@ -13,7 +14,8 @@ services:
       - db1
 
   web2:
-    build: .
+    image: davidstan/django_app:0.1
+    container_name: web2
     volumes:
       - ./app/:/usr/src/app/
     ports:
